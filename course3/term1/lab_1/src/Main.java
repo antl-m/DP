@@ -5,26 +5,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.annotation.IncompleteAnnotationException;
 
-class SharedSlider extends JSlider {
-
-    public SharedSlider() {
-        super(0, 100);
-    }
-
-    synchronized public void Increase(int _Increment) {
-        setValue((int)getValue() + _Increment);
-    }
-}
-
 class MyTh extends Thread {
     private int Increment;
-    private SharedSlider Slider;
+    private JSlider Slider;
     private int Counter = 0;
     private static int BOUND = 1000000;
     private static int THREAD_COUNTER = 0;
     private int CurrentNumber = 0;
 
-    public MyTh(SharedSlider _Slider, int _Increment, int _Priority) {
+    public MyTh(JSlider _Slider, int _Increment, int _Priority) {
         Slider = _Slider;
         Increment = _Increment;
         CurrentNumber = ++THREAD_COUNTER;
@@ -34,11 +23,12 @@ class MyTh extends Thread {
     @Override
     public void run() {
         while (!interrupted()) {
-            int Value = (int)(Slider.getValue());
-            ++Counter;
-            if (Counter > BOUND) {
-                Slider.Increase(Increment);
-                Counter = 0;
+            synchronized (Slider) {
+                ++Counter;
+                if (Counter > BOUND) {
+                    Slider.setValue((int)(Slider.getValue()) + Increment);
+                    Counter = 0;
+                }
             }
         }
     }
@@ -72,7 +62,7 @@ public class Main {
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         win.setSize(500, 400);
 
-        SharedSlider Slider = new SharedSlider();
+        JSlider Slider = new JSlider(0, 100);
 
         MyTh Thread1 = new MyTh(Slider, +1, Thread.NORM_PRIORITY);
         MyTh Thread2 = new MyTh(Slider, -1, Thread.NORM_PRIORITY);
