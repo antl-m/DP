@@ -1,9 +1,6 @@
+package a;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.lang.annotation.IncompleteAnnotationException;
 
 class MyTh extends Thread {
     private int Increment;
