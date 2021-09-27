@@ -37,7 +37,7 @@ func Necheporchuk(ToNecheporchuk chan int, Result * int) {
 
 func main() {
 	var Size = 5
-	var Storage = make(chan int, Size);
+	var Storage = make(chan int, Size)
 	for i := 1; i <= Size; i++ {
 		Storage <- i
 	}

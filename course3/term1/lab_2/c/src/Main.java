@@ -49,7 +49,7 @@ class Battle extends RecursiveTask<Fighter> {
         RightIdx = Fighters.size();
     }
 
-    public Battle(int _LeftIdx, int _RightIdx) {
+    private Battle(int _LeftIdx, int _RightIdx) {
         LeftIdx = _LeftIdx;
         RightIdx = _RightIdx;
     }
