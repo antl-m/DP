@@ -19,6 +19,12 @@
     <ClCompile Include="..\src\Common.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Matrix.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Random.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\AlgBase.h">
@@ -28,6 +34,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Common.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Matrix.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Random.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

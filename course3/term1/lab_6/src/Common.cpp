@@ -1,17 +1,15 @@
 #include "Common.h"
+#include <mpi.h>
 
-
-Random::Random(
-    const NumT _Min,
-    const NumT _Max
-  ) :
-    m_Engine(std::random_device()()),
-    m_Distribution(_Min, _Max)
+MPIGuard::MPIGuard(
+    int     _Argc,
+    char ** _Argv
+  )
 {
-  // Empty
+  MPI_Init(&_Argc, &_Argv);
 }
 
-NumT Random::Get()
+MPIGuard::~MPIGuard()
 {
-  return m_Distribution(m_Engine);
+  MPI_Finalize();
 }

@@ -1,38 +1,20 @@
 #pragma once
 
-#include <array>
+#include <vector>
 #include <random>
-#include <type_traits>
 
 inline constexpr int INVALID = -1;
 
-using NumT = int;
-using Distribution = std::uniform_int_distribution<NumT>;
+inline constexpr int DEFAULT_H = 3;
+inline constexpr int DEFAULT_W = 15;
 
-
-inline constexpr int M = 100;
-inline constexpr int N = 100;
-
-using MatrixAT = std::array<std::array<NumT, N>, M>;
-using MatrixBT = std::array<std::array<NumT, M>, N>;
-using MatrixCT = std::array<std::array<NumT, M>, M>;
-
-class Random
+class MPIGuard
 {
 public:
-
-  Random(
-      const NumT _Min,
-      const NumT _Max
+  MPIGuard(
+      int     _Argc,
+      char** _Argv
     );
 
-  NumT Get();
-
-private:
-
-  std::default_random_engine m_Engine;
-  Distribution               m_Distribution;
+  ~MPIGuard();
 };
-
-MatrixAT GetRandomMatrixA();
-MatrixBT GetRandomMatrixB();

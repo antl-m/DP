@@ -1,60 +1,29 @@
+#include "Common.h"
+#include "Matrix.h"
+#include "SequencedAlg.h"
+
 #include <iostream>
-#include <array>
-#include "mpi.h"
-
-
-class MPIGuard
-{
-public:
-  MPIGuard(
-      int     _Argc,
-      char ** _Argv
-    )
-  {
-    MPI_Init(&_Argc, &_Argv);
-  }
-
-  ~MPIGuard()
-  {
-    MPI_Finalize();
-  }
-};
-
-class AlgBase
-{
-public:
-
-  AlgBase()
-  {
-
-  }
-
-protected:
-
-  const int m_CurrentProcess;
-  const int m_ProcessesCount;
-
-  static Matrix m_MatrixA
-
-};
-
-class SequencedAlg
-{
-public:
-
-  SequencedAlg()
-  {
-
-  }
-
-private:
-
-  const int CurrentProcess;
-  const int ProcessesCount;
-};
 
 int main(int argc, char ** argv )
 {
+  static const MatrixT MatrixA = GetRandomMatrix(DEFAULT_H, DEFAULT_W);
+  static const MatrixT MatrixB = GetRandomMatrix(DEFAULT_W, DEFAULT_H);
+  static MatrixT MatrixC(DEFAULT_H, DEFAULT_H);
+
   MPIGuard Guard(argc, argv);
+
+  SequencedAlg Alg;
+  Alg.SetMatrixA(&MatrixA);
+  Alg.SetMatrixB(&MatrixB);
+  Alg.SetReturnMatrix(&MatrixC);
+
+  Alg.Calculate();
+
+  if (Alg.IsRootProcess())
+  {
+    std::cout << "Matrix A:\n" << MatrixA << "\nMatrix B:\n" << MatrixB << "\nMatrix C:\n" << MatrixC << "\n";
+    std::cout << "Elapsed time: " << Alg.GetElapsedTime() << std::endl;
+  }
+
   return 0;
 }
