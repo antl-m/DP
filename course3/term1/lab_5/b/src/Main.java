@@ -78,6 +78,11 @@ public class Main {
         StringProcessor C = new StringProcessor("C");
         StringProcessor D = new StringProcessor("D");
 
+        A.setDaemon(true);
+        B.setDaemon(true);
+        C.setDaemon(true);
+        D.setDaemon(true);
+
         A.start();
         B.start();
         C.start();
